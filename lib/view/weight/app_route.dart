@@ -28,10 +28,10 @@ class AppRoutes {
       name: qrHistory,
       page: () => QRCodeHistoryScreen(),
     ),
-    GetPage(
-      name: qrGenerate,
-      page: () => QRCodeGenrate(),
-    ),
+    // GetPage(
+    //   name: qrGenerate,
+    //   page: () => QRCodeGenrate(),
+    // ),
     GetPage(
       name: settings,
       page: () => SettingScreen(),

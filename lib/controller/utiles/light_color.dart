@@ -4,8 +4,8 @@ import 'package:kineticqr/controller/utiles/sub_theme_data.dart';
 
 
 
-const Color primarylightColorlight=Color(0xFF3ac3cb);
-const Color  primarycolorlight=Color(0xFFf85187);
+const Color primarylightColorlight=Colors.teal;
+const Color  primarycolorlight=Color(0xFFE0F2F1);
 final Color mainTextColor= Color.fromARGB(255, 240, 231, 231);
  class lightTheme with SubThemeData{
   buildLightTheme(){
