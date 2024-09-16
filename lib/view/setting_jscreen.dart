@@ -16,9 +16,13 @@ class _SettingScreenState extends State<SettingScreen> {
     final ThemeController themeController = Get.find<ThemeController>();
 
     return Scaffold(
+       appBar: AppBar(
+    title: const Text("KineticQr",style: TextStyle(color: Colors.white),),
+    backgroundColor: Colors.teal,
+  ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),

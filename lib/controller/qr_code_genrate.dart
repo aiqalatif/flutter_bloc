@@ -37,12 +37,16 @@ Future<void> captureAndShareScreenshot() async {
         print('Image saved to gallery: $result');
 
         // Extract the content URI from the result
-        final savedFileUri = result['filePath'] as String?; // This will be the content URI
+        final savedFileUri = result['filePath'] as String?;
 
-        // Share the image if saved successfully
         if (savedFileUri != null) {
-          // Share the image using the content URI with XFile.fromUri
-          await Share.shareXFiles([XFile(savedFileUri)]);
+          // Load the content from the URI and write to a file
+          final directory = await getApplicationDocumentsDirectory();
+          final tempFile = File('${directory.path}/qr_code_screenshot.png');
+          await tempFile.writeAsBytes(image);
+
+          // Now share the temporary file
+          await Share.shareXFiles([XFile(tempFile.path)]);
         } else {
           print('Saved file not found.');
         }
@@ -93,7 +97,7 @@ Future<File?> generateQRImage(String data) async {
     return null;
 }
 
-  // Share the generated QR Code Image
+
   Future<void> shareQRCodeImage(File file) async {
     try {
       await Share.shareXFiles([XFile(file.path)], text: 'Here is my QR code!');

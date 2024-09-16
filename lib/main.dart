@@ -4,14 +4,16 @@ import 'package:get/get.dart';
 import 'package:kineticqr/controller/controller.dart';
 import 'package:kineticqr/controller/qrcode_controller_scan.dart';
 import 'package:kineticqr/controller/theme-controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'view/weight/app_route.dart';
 
-void main() {
+Future<void> main()  async {
   Get.put(QRCodeController());
   Get.put(QRCodeC());
   Get.put(ThemeController());
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
 
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
       getPages: AppRoutes.routes, // Use the defined routes
       // Optionally: Configure default transition and other settings
       defaultTransition: Transition.fadeIn,
+      debugShowCheckedModeBanner: false,
     );
+    
   }
 }
 

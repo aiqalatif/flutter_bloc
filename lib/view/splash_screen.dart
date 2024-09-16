@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kineticqr/controller/utiles/constant.dart';
-import 'package:kineticqr/main.dart';
+
 import 'package:kineticqr/view/weight/bottam_navigation_br.dart';
 import 'package:lottie/lottie.dart';  // Import lottie package
 import 'dart:async';

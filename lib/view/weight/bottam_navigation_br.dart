@@ -36,8 +36,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Scaffold(
       body: _pages[_currentIndex],
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
-        child: Icon(Icons.qr_code),
+        backgroundColor:  Colors.teal,
+        child: const Icon(Icons.qr_code,color: Colors.white,),
         onPressed: () {
           setState(() {
             _currentIndex = 0;

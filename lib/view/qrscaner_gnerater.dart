@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kineticqr/controller/controller.dart';
-import 'package:kineticqr/controller/qrcode_controller_scan.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScannerGenerator extends StatefulWidget {
@@ -10,12 +9,11 @@ class QRScannerGenerator extends StatefulWidget {
 }
 
 class _QRScannerGeneratorState extends State<QRScannerGenerator> {
+  QRCodeController qrCodeController = Get.put(QRCodeController());
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   String? qrText;
   bool isProcessing = false;
-  QRCodeController qrCodeController = Get.put(QRCodeController());
-  QRCodeC qrCode = Get.put(QRCodeC());
 
   @override
   void reassemble() {
@@ -30,7 +28,12 @@ class _QRScannerGeneratorState extends State<QRScannerGenerator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR Code Scanner'),
+        title: const Text(
+          "KineticQr",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.teal,
+        elevation: 0,
       ),
       body: Column(
         children: <Widget>[
@@ -39,14 +42,38 @@ class _QRScannerGeneratorState extends State<QRScannerGenerator> {
             child: QRView(
               key: qrKey,
               onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Colors.teal,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 300,
+              ),
             ),
           ),
           Expanded(
             flex: 1,
-            child: Center(
-              child: qrText != null
-                  ? Text('Scanned: $qrText')
-                  : Text('Scan a QR code or barcode'),
+            child: Container(
+              color: Colors.teal.shade50,
+              child: Center(
+                child: qrText != null
+                    ? Text(
+                        'Scanned: $qrText',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
+                      )
+                    : const Text(
+                        'Scan a QR code or barcode',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
+                      ),
+              ),
             ),
           ),
         ],
@@ -62,20 +89,13 @@ class _QRScannerGeneratorState extends State<QRScannerGenerator> {
           qrText = scanData.code;
           isProcessing = true;
         });
-        qrCode.addToHistory(scanData.code!);
-        _processScannedData(scanData.code);
+        qrCodeController.processScannedData(scanData.code).then((_) {
+          // Reset isProcessing after processing is complete
+          setState(() {
+            isProcessing = false;
+          });
+        });
       }
-    });
-  }
-
-  void _processScannedData(String? scannedData) {
-    if (scannedData != null) {
-      // Handle scanned data if needed
-    }
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        isProcessing = false;
-      });
     });
   }
 
@@ -85,4 +105,3 @@ class _QRScannerGeneratorState extends State<QRScannerGenerator> {
     super.dispose();
   }
 }
-

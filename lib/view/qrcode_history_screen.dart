@@ -1,36 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:intl/intl.dart';
 import 'package:kineticqr/controller/controller.dart';
+import 'package:kineticqr/view/data_services.dart';
 
-class QRCodeHistoryScreen extends StatelessWidget {
+class QRCodeHistoryScreen extends StatefulWidget {
+  @override
+  State<QRCodeHistoryScreen> createState() => _QRCodeHistoryScreenState();
+}
+
+class _QRCodeHistoryScreenState extends State<QRCodeHistoryScreen> {
   final QRCodeController qrCodeController = Get.find<QRCodeController>();
+  final DataService _dataService = DataService();
+  List<String> _dataList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final String? data = await _dataService.getData();
+    setState(() {
+      if (data != null) {
+        _dataList = data.split('\n'); // Assuming data is separated by newlines
+      } else {
+        _dataList = ['No data available or data has expired.'];
+      }
+    });
+  }
+
+  Future<void> _saveData() async {
+    final dataToSave = 'Sample data saved at ${DateTime.now()}';
+    await _dataService.saveData(dataToSave);
+    _loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('QR Code History'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _loadData,
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _saveData,
+          ),
+        ],
       ),
-      body: Obx(() {
-        if (qrCodeController.qrCodeHistory.isEmpty) {
-          return  const Center(
-            child:  Text('No scan history available.',style: TextStyle(),),
+      body: ListView.builder(
+        itemCount: _dataList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(_dataList[index]),
           );
-        }
-
-        return ListView.builder(
-          itemCount: qrCodeController.qrCodeHistory.length,
-          itemBuilder: (context, index) {
-            var item = qrCodeController.qrCodeHistory[index];
-            return ListTile(
-              title: Text(item['code']),
-              subtitle: Text(DateFormat('yyyy-MM-dd HH:mm:ss').format(item['timestamp'])),
-            );
-          },
-        );
-      }),
+        },
+      ),
     );
   }
 }

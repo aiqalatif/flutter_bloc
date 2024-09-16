@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class QRCodeController extends GetxController {
   var qrCodeHistory = <Map<String, dynamic>>[].obs; // List of scanned QR codes
@@ -18,5 +19,24 @@ class QRCodeController extends GetxController {
       return now.difference(scanTime).inHours >= 24;
     });
   }
-  
+  Future<void> processScannedData(String? scannedData) async {
+    if (scannedData != null) {
+      if (_isValidURL(scannedData)) {
+        // Open URL in browser if it's a valid URL
+        if (await canLaunch(scannedData)) {
+          await launch(scannedData);
+        } else {
+          throw 'Could not launch $scannedData';
+        }
+      } else {
+        // Handle non-URL QR codes (optional)
+        print('Scanned data is not a URL');
+      }
+    }
+  }
+
+  bool _isValidURL(String url) {
+    final Uri uri = Uri.parse(url);
+    return uri.scheme == "http" || uri.scheme == "https";
+  }
 }
