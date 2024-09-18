@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:kineticqr/controller/qr_code_genrate.dart';
+import 'package:kineticqr/controller/qrcode_controller.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -59,7 +59,7 @@ return Scaffold(
                   );
                 }).toList(),
                 isExpanded: true,
-                underline: SizedBox(),
+                underline:  const SizedBox(),
               ),
             );
           }),

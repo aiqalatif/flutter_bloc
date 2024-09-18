@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
-import 'package:kineticqr/view/qr_code_genrate.dart';
+
 import 'package:kineticqr/view/qrcode_history_screen.dart';
 import 'package:kineticqr/view/qrscaner_gnerater.dart';
 import 'package:kineticqr/view/setting_jscreen.dart';

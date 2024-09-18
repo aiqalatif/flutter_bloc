@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,8 +20,10 @@ class QRCodeController extends GetxController {
       return now.difference(scanTime).inHours >= 24;
     });
   }
+
   Future<void> processScannedData(String? scannedData) async {
     if (scannedData != null) {
+      addQRCode(scannedData); // Add to history
       if (_isValidURL(scannedData)) {
         // Open URL in browser if it's a valid URL
         if (await canLaunch(scannedData)) {
@@ -30,7 +33,9 @@ class QRCodeController extends GetxController {
         }
       } else {
         // Handle non-URL QR codes (optional)
-        print('Scanned data is not a URL');
+        if (kDebugMode) {
+          print('Scanned data is not a URL');
+        }
       }
     }
   }

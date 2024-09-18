@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kineticqr/controller/controller.dart';
+import 'package:kineticqr/controller/history_controller.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScannerGenerator extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kineticqr/controller/controller.dart';
-import 'package:kineticqr/view/data_services.dart';
+import 'package:kineticqr/controller/history_controller.dart';
+import 'package:kineticqr/controller/services/data_services.dart';
 
 class QRCodeHistoryScreen extends StatefulWidget {
   @override
@@ -40,14 +40,15 @@ class _QRCodeHistoryScreenState extends State<QRCodeHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('QR Code History'),
+        title: const Text('QR Code History',style: TextStyle(color: Colors.white),),
+    backgroundColor: Colors.teal,
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const  Icon(Icons.refresh),
             onPressed: _loadData,
           ),
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: _saveData,
           ),
         ],
