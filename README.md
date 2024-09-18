@@ -1,4 +1,4 @@
-KineticQR
+
 KineticQR is a Flutter application designed to provide a seamless experience for scanning and generating QR codes. The app supports scanning QR codes and barcodes, creating custom QR codes from various data inputs, and sharing the generated QR codes. It is built with a focus on user-friendly design, efficiency, and smooth performance on both Android and iOS platforms.
 
 Features
